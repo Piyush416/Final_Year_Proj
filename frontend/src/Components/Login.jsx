@@ -9,7 +9,7 @@ import myimg from "./bk_img.jpg";
 
 const Login = () => {
   return (
-    <div className='flex '>
+    <div className='flex pb-20'>
 
       {/* backgorund image */}
       {/* <div className='absolute border w-full h-full max-h-xl'> */}
@@ -29,15 +29,15 @@ const Login = () => {
           <form action="">
 
             <div className='border border-gray-200 flex flex-col py-4 px-3'>
-              <label htmlFor="eamil" >EMAIL ADDRESS</label>
+              <label htmlFor="email" >EMAIL ADDRESS</label>
               <input type="email" name='email' required placeholder='johndoe@example.com' className='outline-none py-1 w-full' />
             </div>
             <div className='border border-gray-200 flex flex-col py-4 px-2'>
               <label htmlFor="password">Password</label>
               <div className='flex items-center'>
                 <input type="Password" name='email' required placeholder='Enter Stong Password ' className='outline-none py-1 w-full' />
-                <div>
-                  <BsEye />
+                <div className='hover:cursor-pointer'>
+                  <BsEye size={"20px"}/>
                 </div>
               </div>
             </div>
@@ -58,9 +58,9 @@ const Login = () => {
 
           {/* Fourth Child */}
           <div className='flex justify-center  items-center gap-5 p-5'>
-            <div className='border-1 p-1 border-gray-200 bg-gray-100'><FcGoogle size={"24px"} /></div>
-            <div className='border-1 p-1 border-gray-200 bg-gray-100'><BsApple size={"24px"} /></div>
-            <div className='border-1 p-1 border-gray-200 bg-gray-100 '><FaFacebook size={"24px"} color='blue' /></div>
+            <div className='border-1 p-1 border-gray-200 bg-gray-100 hover:cursor-pointer'><FcGoogle size={"24px"} /></div>
+            <div className='border-1 p-1 border-gray-200 bg-gray-100 hover:cursor-pointer'><BsApple size={"24px"} /></div>
+            <div className='border-1 p-1 border-gray-200 bg-gray-100 hover:cursor-pointer '><FaFacebook size={"24px"} color='blue' /></div>
           </div>
         </div>
       </div>
