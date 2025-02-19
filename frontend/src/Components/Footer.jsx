@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <div className='flex flex-row bottom-0 justify-around bg-gray-200 w-full p-8'>
+        <div className='flex flex-row relative bottom-0 justify-around bg-gray-200 w-full p-8'>
             <div>
                 <p className='font-bold'>ALUMNI PORTAL</p>
                 <p>Briding the Generation</p>
