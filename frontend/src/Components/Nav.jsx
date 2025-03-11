@@ -30,6 +30,10 @@ const NavbarData = [
   {
     "name":"Find Alumni",
     "link":"findAlumnies"
+  },
+  {
+    "name":"Fund Raising",
+    "link":"fund-raising"
   }
 ]
 

@@ -11,6 +11,8 @@ import JobPortal from './Components/JobPortal'
 import EventsPage from './Components/Events'
 import FindAlumni from './Components/FindAlumni'
 import Inbox from './Components/Inbox'
+import Profile from './Components/SubComponents/Profile'
+import FundraisingOptions from './Components/FundRaising'
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,8 @@ const route = createBrowserRouter(
       <Route path='/events' element={ <EventsPage />   } />
       <Route path='/findAlumnies' element={<FindAlumni />} />
       <Route path='/inboxs' element={<Inbox />} />
+      <Route path='/profile' element={<Profile />} />
+      <Route path='/fund-raising' element={<FundraisingOptions />} />
      </Route>
   )
 )
