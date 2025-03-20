@@ -1,7 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Route, Routes } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Landing from "./Components/Landing"
 import Login from './Components/Login'
@@ -15,7 +12,8 @@ import EventsPage from './Components/Events'
 import FindAlumni from './Components/FindAlumni'
 import Inbox from './Components/Inbox'
 import Profile from './Components/SubComponents/Profile'
-import FundraisingOptions from './Components/FundRaising'
+import FundraisingOptions from "./Components/FundRaising.jsx";
+
 
 const route = createBrowserRouter(
   createRoutesFromElements(
