@@ -50,11 +50,18 @@ enum LevelofEduction {
   Doctorate
 }
 
+enum TypeUser {
+  Admin
+  Alumni
+  Student
+}
+
 model Registration {
   id                                        String          @id @default(auto()) @map("_id") @db.ObjectId
   email                                     String          @unique
   FirstName                                 String?
   LastName                                  String?
+  Password                                  String
   primaryEmailId                            String          @unique
   secondaryEmailId                          String          @unique
   Gender                                    GENDER
@@ -74,6 +81,7 @@ model Registration {
   PlaceofWork                               String?
   Skills                                    String[]
   currentAddress                            Address
+  typeOfUser                                TypeUser
 }
 
 type Address {

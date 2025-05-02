@@ -1,10 +1,20 @@
 import express from 'express';
 import 'dotenv/config'
 import {ApiResponse} from "./Utils/ApiResponse.js";
-
-
+import {connectToDatabase} from "./DBConnection/dbConnection.js";
+import authRoutes from "./Routes/Auth.js";
 const app = express();
 const port = process.env.PORT || 3001;
+const baseUrl = "/api/"
+
+connectToDatabase().
+then(() => "Database Connection Successfully")
+    .catch(() => "Something went Wrong!")
+
+//Routes
+
+app.use(baseUrl,authRoutes)
+
 
 app.get("/",(req,res) =>{
     res.json(new ApiResponse(200,"Server is Up and Running"))
