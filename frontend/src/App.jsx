@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Landing from "./Components/Landing"
 import Login from './Components/Login'
