@@ -12,7 +12,8 @@ import EventsPage from './Components/Events'
 import FindAlumni from './Components/FindAlumni'
 import Inbox from './Components/Inbox'
 import Profile from './Components/SubComponents/Profile'
-import FundraisingOptions from './Components/FundRaising'
+import FundraisingOptions from "./Components/FundRaising.jsx";
+
 
 const route = createBrowserRouter(
   createRoutesFromElements(

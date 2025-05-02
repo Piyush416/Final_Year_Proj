@@ -25,7 +25,7 @@ const profileData = {
 
 const Profile = () => {
   return (
-    <div className="p-6 w-full mx-auto space-y-6">
+    <div className="p-6 w-full mx-auto space-y-6 h-screen">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-full">
         <h2 className="text-xl font-semibold mb-4 text-center">Profile Information</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700 w-full">
