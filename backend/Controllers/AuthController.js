@@ -1,6 +1,7 @@
 import prisma from "../DBConnection/prismaClient.js";
+import {ApiResponse} from "../Utils/ApiResponse.js";
 
-export const Registration = (req,res) => {
+export const Registration = async (req,res) => {
     try {
         console.log("Registration")
         const {
@@ -9,10 +10,44 @@ export const Registration = (req,res) => {
             YearofPassing,Institution,Degree,Specialization,
             optedForHigherEducationfromOtherInstitues,
             highestLevelOfEduction,UniversityofHigherEducdation,
-            Company,Title,Industry,WorkExp,PlaceofWork,Skills
+            Company,Title,Industry,WorkExp,PlaceofWork,Skills,currentAddress
         } = req.body;
-        console.log(req.body);
-    }catch (error) {
 
+
+        const result = await prisma.registration.create({
+            data: {
+                email,
+                FirstName,
+                LastName,
+                Password,
+                primaryEmailId,
+                Gender,
+                DateofBirth,
+                startingYear,
+                YearofPassing,
+                Institution,
+                Degree,
+                Specialization,
+                optedForHigherEducationfromOtherInstitues,
+                highestLevelOfEduction,
+                UniversityofHigherEducdation,
+                Company,
+                Title,
+                Industry,
+                WorkExp,
+                PlaceofWork,
+                Skills,
+                currentAddress,
+                typeOfUser:"Admin"
+            }
+        })
+
+        return res.status(200).json(new ApiResponse(200, result, "Success"));
+
+    }catch (error) {
+        console.log("Error:", error);
+        return res
+            .status(500)
+            .json(new ApiResponse(500, null, "Internal server error"));
     }
 }

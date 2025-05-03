@@ -57,22 +57,22 @@ enum TypeUser {
 }
 
 model Registration {
-  id                                        String          @id @default(auto()) @map("_id") @db.ObjectId
-  email                                     String          @unique
+  id                                        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email                                     String    @unique
   FirstName                                 String?
   LastName                                  String?
   Password                                  String
-  primaryEmailId                            String          @unique
-  secondaryEmailId                          String          @unique
-  Gender                                    GENDER
-  DateofBirth                               DateTime
-  startingYear                              BigInt
-  YearofPassing                             BigInt?
-  Institution                               Institutes
-  Degree                                    Degree
+  primaryEmailId                            String    @unique
+  secondaryEmailId                          String?   @unique
+  Gender                                    String?
+  DateofBirth                               DateTime?
+  startingYear                              Int
+  YearofPassing                             Int?
+  Institution                               String?
+  Degree                                    String?
   Specialization                            String
-  optedForHigherEducationfromOtherInstitues Boolean         @default(false)
-  highestLevelOfEduction                    LevelofEduction
+  optedForHigherEducationfromOtherInstitues Boolean   @default(false)
+  highestLevelOfEduction                    String?
   UniversityofHigherEducdation              String?
   Company                                   String?
   Title                                     String?
@@ -88,4 +88,10 @@ type Address {
   placeOfWork String
   state       String
   city        String
+}
+
+model UtilityCollections {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  KeyField String   @unique
+  Value    String[]
 }
