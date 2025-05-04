@@ -57,31 +57,31 @@ enum TypeUser {
 }
 
 model Registration {
-  id                                        String    @id @default(auto()) @map("_id") @db.ObjectId
-  email                                     String    @unique
-  FirstName                                 String?
-  LastName                                  String?
-  Password                                  String
-  primaryEmailId                            String    @unique
-  secondaryEmailId                          String?   @unique
-  Gender                                    String?
-  DateofBirth                               DateTime?
-  startingYear                              Int
-  YearofPassing                             Int?
-  Institution                               String?
-  Degree                                    String?
-  Specialization                            String
-  optedForHigherEducationfromOtherInstitues Boolean   @default(false)
-  highestLevelOfEduction                    String?
-  UniversityofHigherEducdation              String?
-  Company                                   String?
-  Title                                     String?
-  Industry                                  String?
-  WorkExp                                   Int?
-  PlaceofWork                               String?
-  Skills                                    String[]
-  currentAddress                            Address
-  typeOfUser                                TypeUser
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  primaryEmail     String   @unique
+  FirstName        String?
+  LastName         String?
+  Password         String
+  // primaryEmailId                            String    @unique
+  secondaryEmailId String?  @unique
+  // Gender                                    String?
+  // DateofBirth                               DateTime?
+  // startingYear                              Int
+  // YearofPassing                             Int?
+  Institution      String?
+  Degree           String?
+  // Specialization                            String
+  // optedForHigherEducationfromOtherInstitues Boolean   @default(false)
+  // highestLevelOfEduction                    String?
+  // UniversityofHigherEducdation              String?
+  // Company                                   String?
+  // Title                                     String?
+  // Industry                                  String?
+  // WorkExp                                   Int?
+  // PlaceofWork                               String?
+  // Skills                                    String[]
+  // currentAddress                            Address
+  typeOfUser       TypeUser
 }
 
 type Address {

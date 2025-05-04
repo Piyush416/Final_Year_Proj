@@ -3,42 +3,21 @@ import {ApiResponse} from "../Utils/ApiResponse.js";
 
 export const Registration = async (req,res) => {
     try {
-        console.log("Registration")
         const {
-            email,FirstName,LastName,Password,
-            primaryEmailId,Gender,DateofBirth,startingYear,
-            YearofPassing,Institution,Degree,Specialization,
-            optedForHigherEducationfromOtherInstitues,
-            highestLevelOfEduction,UniversityofHigherEducdation,
-            Company,Title,Industry,WorkExp,PlaceofWork,Skills,currentAddress
+            primaryEmail,FirstName,LastName,Password,
+            Institution,Degree,typeofUser
         } = req.body;
 
 
         const result = await prisma.registration.create({
             data: {
-                email,
+                primaryEmail,
                 FirstName,
                 LastName,
                 Password,
-                primaryEmailId,
-                Gender,
-                DateofBirth,
-                startingYear,
-                YearofPassing,
                 Institution,
                 Degree,
-                Specialization,
-                optedForHigherEducationfromOtherInstitues,
-                highestLevelOfEduction,
-                UniversityofHigherEducdation,
-                Company,
-                Title,
-                Industry,
-                WorkExp,
-                PlaceofWork,
-                Skills,
-                currentAddress,
-                typeOfUser:"Admin"
+                typeOfUser:typeofUser
             }
         })
 
@@ -49,5 +28,13 @@ export const Registration = async (req,res) => {
         return res
             .status(500)
             .json(new ApiResponse(500, null, "Internal server error"));
+    }
+}
+
+export const Login = async (req,res) =>{
+    try {
+
+    }
+    catch (error) {
     }
 }
