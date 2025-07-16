@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Institutes {
+  Parul_Institue_of_Engineering_and_Technology
+  Parul_Institue_of_Technology
+  Parul_Institue_of_Design
+  Parul_Institute_of_Management
+  Parul_Institute_of_Design
+  Parul_Institute_of_Applied_Sciences
+  Parul_Institute_of_Medical_Science_and_Research
+  Parul_Institute_of_Pharmacy_and_Research
+  Parul_Institute_of_Ayurveda_and_Research
+  Parul_Institute_of_Hotel_Management_and_Catering_Technology
+  Parul_Polytechnic_Institute
+}
+
+enum Degree {
+  BTech
+  MTech
+  PhD
+  BSc
+  MSc
+  Pharmacy
+  MBA
+}
+
+enum LevelofEduction {
+  Graduate
+  PostGraduate
+  Doctorate
+}
+
+model Registration {
+  id                                        String          @id @default(auto()) @map("_id") @db.ObjectId
+  email                                     String          @unique
+  FirstName                                 String?
+  LastName                                  String?
+  primaryEmailId                            String          @unique
+  secondaryEmailId                          String          @unique
+  Gender                                    GENDER
+  DateofBirth                               DateTime
+  startingYear                              BigInt
+  YearofPassing                             BigInt?
+  Institution                               Institutes
+  Degree                                    Degree
+  Specialization                            String
+  optedForHigherEducationfromOtherInstitues Boolean         @default(false)
+  highestLevelOfEduction                    LevelofEduction
+  UniversityofHigherEducdation              String?
+  Company                                   String?
+  Title                                     String?
+  Industry                                  String?
+  WorkExp                                   Int?
+  PlaceofWork                               String?
+  Skills                                    String[]
+  currentAddress                            Address
+}
+
+type Address {
+  placeOfWork String
+  state       String
+  city        String
+}
