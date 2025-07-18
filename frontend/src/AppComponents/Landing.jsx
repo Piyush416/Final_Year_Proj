@@ -1,5 +1,7 @@
 import React from 'react'
 import logo from '../assets/undraw_graduation.svg'
+import { useProgress } from '../Contexts/ProgressContext.jsx'
+import { createAxiosInstance } from '../axios/axiosInstance';
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -154,6 +156,13 @@ const Faculty = [
 
 
 const Landing = () => {
+
+    const { showProgress, hideProgress } = useProgress();
+    const axiosInstance = createAxiosInstance(showProgress, hideProgress);
+    showProgress()
+    // axiosInstance.get('/api/t')
+
+
     return (
         <div className='bg-black w-full min-h-screen' style={{ backgroundColor: 'whitesmoke' }}>
             {/* About Parul University */}

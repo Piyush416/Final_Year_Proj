@@ -16,6 +16,15 @@ const userSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    hashpassword:{
+        type:String,
+        required:true,
+        select:true // This will prevent the password from being returned in queries
+    },
+    isEmailVerified:{
+        type:Boolean,
+        required:true,
+    },
     role:{
         type:String,
         enum:['user','admin'],
@@ -23,4 +32,4 @@ const userSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
-module.exports = mongoose.model("Registration",userSchema)
+export const User = mongoose.model("User", userSchema);

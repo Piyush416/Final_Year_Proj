@@ -16,6 +16,8 @@ import FindAlumni from './AppComponents/FindAlumni.jsx'
 import Inbox from './AppComponents/Inbox.jsx'
 import Profile from './AppComponents/SubComponents/Profile.jsx'
 import FundraisingOptions from "./AppComponents/FundRaising.jsx";
+import { ProgressProvider } from "./Contexts/ProgressContext.jsx"
+import ProgressBar from "./Loaders/ProgressBar.jsx"
 
 
 const route = createBrowserRouter(
@@ -41,11 +43,14 @@ function App() {
 
   return (
     <>
-      <SidebarProvider>
-      <div className='h-screen'>
-        <RouterProvider router={route} />
-      </div>
-      </SidebarProvider>
+     {/* <ProgressProvider>
+      <ProgressBar /> */}
+        <SidebarProvider className='w-full'>
+             <div className='h-screen'>
+              <RouterProvider router={route} />
+              </div>
+        </SidebarProvider>
+      {/* </ProgressProvider> */}
     </>
   )
 }

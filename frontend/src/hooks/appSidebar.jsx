@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, GanttChartSquareIcon, Home, Inbox, Network, Option, Presentation, Radius, Search, SearchCheckIcon, Settings } from "lucide-react"
 import logo from '../assets/undraw_graduation.svg'
 import {
   Sidebar,
@@ -10,7 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-
+import { useProgress } from '../Contexts/ProgressContext.jsx'
+import { createAxiosInstance } from '../axios/axiosInstance';
+import React, { useState } from 'react'
+import { useEffect } from "react";
 // Menu items.
 const items = [
   {
@@ -40,7 +43,38 @@ const items = [
   },
 ]
 
+const iconMap = {
+  "Landing Page":Home,
+  "Discussion Forms":GanttChartSquareIcon,
+  "Mentorship":Presentation,
+  "Oppurtunities":Calendar,
+  "Network":Network,
+  "Inbox":Inbox,
+  "Event":Calendar,
+  "Find Alumni":SearchCheckIcon,
+  "Fund Raising":Radius
+}
+
 export function AppSidebar() {
+  const [items,setItems] = useState([])
+  const { showProgress, hideProgress } = useProgress();
+  const axiosInstance = createAxiosInstance(showProgress, hideProgress);
+
+  useEffect(() => {
+    axiosInstance.get('api/configuration?name=Sidebar').then((response) => {
+      console.log("Response from Sidebar Configuration:", response.data.data);
+      const mappedItems = response.data.data.map((item) => ({
+        title:item.name,
+        url:item.link,
+        icon: iconMap[item.name] || Home // Fallback to Option icon if not found
+      }))
+      setItems(mappedItems)
+      console.log("----------",mappedItems)
+    }).catch((error) => {
+      console.log("Error fetching sidebar configuration:", error);
+    })
+  }, []);
+
     return (
       <Sidebar className="">
         <SidebarContent>
