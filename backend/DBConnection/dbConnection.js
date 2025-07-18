@@ -1,16 +1,14 @@
-//TODO Adding Database Connection
+// TODO: Add Database Connection
 
-import {MongoClient} from "mongodb"
-const uri = process.env.DATABASE_URL
-const client = new MongoClient(uri)
+import mongoose from "mongoose"
 
-export async function connectToDatabase(){
-    try{
-        await client.connect();
-        console.log("Connected to Database")
-        return client.db("AlumniPortal")
-    }catch (error){
-        console.error("MongoDB Connection Error: ", error.message)
-        throw error;
-    }
+const uri = "mongodb+srv://lastyearprojectby4:Admin%40123@cluster0.vds3qk4.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0"
+export async function connectToDatabase() {
+  try {
+    await mongoose.connect(uri)
+    console.log("✅ Connected to MongoDB")
+  } catch (error) {
+    console.error("❌ MongoDB Connection Error:", error.message)
+    throw error
+  }
 }
