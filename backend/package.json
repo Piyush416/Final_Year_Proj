@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js && npx prisma generate"
+    "start": "nodemon index.js && npx prisma generate",
+    "generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +15,14 @@
   "dependencies": {
     "@prisma/client": "^6.7.0",
     "backend": "file:",
-    "dotenv": "^16.5.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
+    "mongoose": "^8.16.4",
     "nodemon": "^3.1.10",
     "prisma": "^6.7.0"
   }

@@ -1,18 +1,23 @@
 import { Route, Routes } from 'react-router-dom'
 import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import Landing from "./Components/Landing"
-import Login from './Components/Login'
-import Register from "./Components/Register"
-import Layout from "./Components/Layout"
+import {SidebarProvider,SidebarTrigger} from "./components/ui/sidebar.js"
+
+
+import Landing from "./AppComponents/Landing.jsx"
+import Login from './AppComponents/Login.jsx'
+import Register from "./AppComponents/Register.jsx"
+import Layout from "./AppComponents/Layout.jsx"
 import { RouterProvider } from 'react-router-dom'
-import DiscussionForum from './Components/DiscussionForm'
-import IndivialCard from './Components/SubComponents/Disussions/IndivialCard'
-import JobPortal from './Components/JobPortal'
-import EventsPage from './Components/Events'
-import FindAlumni from './Components/FindAlumni'
-import Inbox from './Components/Inbox'
-import Profile from './Components/SubComponents/Profile'
-import FundraisingOptions from "./Components/FundRaising.jsx";
+import DiscussionForum from './AppComponents/DiscussionForm.jsx'
+import IndivialCard from './AppComponents/SubComponents/Disussions/IndivialCard.jsx'
+import JobPortal from './AppComponents/JobPortal.jsx'
+import EventsPage from './AppComponents/Events.jsx'
+import FindAlumni from './AppComponents/FindAlumni.jsx'
+import Inbox from './AppComponents/Inbox.jsx'
+import Profile from './AppComponents/SubComponents/Profile.jsx'
+import FundraisingOptions from "./AppComponents/FundRaising.jsx";
+import { ProgressProvider } from "./Contexts/ProgressContext.jsx"
+import ProgressBar from "./Loaders/ProgressBar.jsx"
 
 
 const route = createBrowserRouter(
@@ -38,9 +43,14 @@ function App() {
 
   return (
     <>
-      <div className='h-screen'>
-        <RouterProvider router={route} />
-      </div>
+     {/* <ProgressProvider>
+      <ProgressBar /> */}
+        <SidebarProvider className='w-full'>
+             <div className='h-screen'>
+              <RouterProvider router={route} />
+              </div>
+        </SidebarProvider>
+      {/* </ProgressProvider> */}
     </>
   )
 }

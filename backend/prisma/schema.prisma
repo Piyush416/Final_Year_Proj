@@ -50,34 +50,48 @@ enum LevelofEduction {
   Doctorate
 }
 
+enum TypeUser {
+  Admin
+  Alumni
+  Student
+}
+
 model Registration {
-  id                                        String          @id @default(auto()) @map("_id") @db.ObjectId
-  email                                     String          @unique
-  FirstName                                 String?
-  LastName                                  String?
-  primaryEmailId                            String          @unique
-  secondaryEmailId                          String          @unique
-  Gender                                    GENDER
-  DateofBirth                               DateTime
-  startingYear                              BigInt
-  YearofPassing                             BigInt?
-  Institution                               Institutes
-  Degree                                    Degree
-  Specialization                            String
-  optedForHigherEducationfromOtherInstitues Boolean         @default(false)
-  highestLevelOfEduction                    LevelofEduction
-  UniversityofHigherEducdation              String?
-  Company                                   String?
-  Title                                     String?
-  Industry                                  String?
-  WorkExp                                   Int?
-  PlaceofWork                               String?
-  Skills                                    String[]
-  currentAddress                            Address
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  primaryEmail     String   @unique
+  FirstName        String?
+  LastName         String?
+  Password         String
+  // primaryEmailId                            String    @unique
+  secondaryEmailId String?  @unique
+  // Gender                                    String?
+  // DateofBirth                               DateTime?
+  // startingYear                              Int
+  // YearofPassing                             Int?
+  Institution      String?
+  Degree           String?
+  // Specialization                            String
+  // optedForHigherEducationfromOtherInstitues Boolean   @default(false)
+  // highestLevelOfEduction                    String?
+  // UniversityofHigherEducdation              String?
+  // Company                                   String?
+  // Title                                     String?
+  // Industry                                  String?
+  // WorkExp                                   Int?
+  // PlaceofWork                               String?
+  // Skills                                    String[]
+  // currentAddress                            Address
+  typeOfUser       TypeUser
 }
 
 type Address {
   placeOfWork String
   state       String
   city        String
+}
+
+model UtilityCollections {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  KeyField String   @unique
+  Value    String[]
 }
