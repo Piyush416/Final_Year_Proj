@@ -1,94 +1,45 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require("cors")
+import express, { urlencoded } from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+import cookieParser from 'cookie-parser';
+import { ApiResponse } from './Utils/ApiResponse.js';
+import { connectToDatabase } from './DBConnection/dbConnection.js';
+import authRoutes from './Routes/Auth.js';
+import UtilityRoutes from './Routes/UtilityRoutes.js';
+import ConfigurationRoute from './Routes/ConfigurationRoute.js';
 
-const PORT = 8080;
+const app = express();
+const port = process.env.PORT || 3001;
+const baseUrl = '/api';
 
-const app = express()
+// ✅ Proper CORS setup
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
-app.use(cors());
+// ✅ Connect DB
+await connectToDatabase()
+  .then(() => console.log('✅ Database connected'))
+  .catch((err) => {
+    console.error('❌ DB connection failed:', err.message);
+    process.exit(1);
+  });
+
+// ✅ Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(urlencoded({ extended: true }));
 
+// ✅ Routes
+app.use(baseUrl, authRoutes);
+app.use(baseUrl, UtilityRoutes);
+app.use(baseUrl, ConfigurationRoute);
 
-const MONGO_URL = "mongodb+srv://lastyearprojectby4:1234@cluster0.vds3qk4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
-
-mongoose.connect(MONGO_URL).then(() => {
-    console.log("MongoDb connection Est.")
-}).catch(() => {
-    console.log("Failed to Connect DataBase")
-})
-
-
-const connection = mongoose.connection;
-
-connection.on("connected", () => {
-    console.log("Connected to MongoDB database:", connection.db.databaseName);
+app.get('/', (req, res) => {
+  res.json(new ApiResponse(200, 'Server is Up and Running'));
 });
 
-connection.on("error", (err) => {
-    console.error("MongoDB connection error:", err);
+app.listen(port, () => {
+  console.log(`🚀 Server app listening on port ${port}`);
 });
-
-
-
-// schema
-
-const studentSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    enrollmentNo: {
-        type: Number,
-        unique: true,
-        required: true
-    },
-    passYear: Number,
-    studentEmail: String,
-    studentPass: String
-})
-
-const studentModel = mongoose.model("student", studentSchema)
-
-
-// student login
-app.post("/student/login", async (req, res) => {
-    const { email, pass } = req.body;
-    const data = await studentModel.findOne({ studentEmail: email });
-    if (data && data.studentPass == pass) {
-        res.status(201).json({ message: "Login SuccessFully" });
-    }
-    else {
-        res.status(500).json({ message: "Invalid Credentials" });
-    }
-})
-
-
-
-// registration student
-app.post("/student/register", async (req, res) => {
-    try {
-        const { firstName, lastName, passYear, enrollmentNo, studentEmail, studentPass } = req.body;
-        console.log(firstName, lastName, passYear, enrollmentNo, studentEmail, studentPass);
-        const newUser = new studentModel({
-            firstName,
-            lastName,
-            enrollmentNo,
-            passYear,
-            studentEmail,
-            studentPass
-        })
-        await newUser.save();
-        res.status(201).json({ message: "Successfully Reg" })
-    }
-    catch {
-        res.status(500).json({ message: "Error encountered" })
-    }
-})
-
-
-
-app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`);
-})
-

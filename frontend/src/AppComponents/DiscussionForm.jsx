@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DiscussionForum = () => {
 
   const navigate = useNavigate();
 
-  const [forums, setForums] = useState([
+  const [forums,] = useState([
     { id: 1, topic: "The Future of AI", description: "AI is evolving rapidly, transforming industries from healthcare to finance. What are your thoughts on its future impact?", comments: ["AI will create new job opportunities!", "We should be cautious about AI ethics."] },
     { id: 2, topic: "Renewable Energy", description: "Renewable energy sources are key to a sustainable future. How can we accelerate their adoption?", comments: ["Government incentives can help.", "Solar energy is becoming more affordable."] },
     { id: 3, topic: "Space Exploration", description: "The race to Mars and beyond is heating up. Should humanity prioritize space colonization?", comments: ["Space exploration fuels technological advancements.", "We should focus on fixing Earth first."] }
