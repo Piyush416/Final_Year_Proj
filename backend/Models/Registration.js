@@ -1,10 +1,24 @@
 import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema({
-    name:{
+    FirstName:{
         type:String,
         required:true,
         trim:true
+    },
+    LastName:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    EnrollmentNumber:{
+        type:String,
+        required:true,
+    },
+    mobileNumber:{
+        type:String,
+        required:true,
+        unique:true
     },
     primaryEmail:{
         type:String,
@@ -29,6 +43,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         enum:['user','admin'],
         default:'user'
+    },
+    passingYear:{
+        type:String,
+        required:true
     }
 },{timestamps:true})
 

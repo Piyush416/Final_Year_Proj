@@ -1,13 +1,13 @@
 import { User } from "../Models/Registration.js";
 import {ApiResponse} from "../Utils/ApiResponse.js";
 import bcrypt from "bcrypt";
-import { generateToken } from "../Utils/jwt.js";
+import { generateToken, verifyToken,decodeToken } from "../Utils/jwt.js";
 
 export const Registration = async (req,res) => {
     try {
-       const {name,primaryEmail,secondaryEmail,isEmailVerified,role,password} = req.body
+       const {FirstName,LastName,EnrollmentNumber,mobileNumber,primaryEmail,secondaryEmail,isEmailVerified,role,password,passingYear} = req.body
 
-       if(!name || !primaryEmail || !secondaryEmail || isEmailVerified === undefined || !password){
+       if(!FirstName|| !LastName || !EnrollmentNumber || !mobileNumber || !passingYear || !primaryEmail || !secondaryEmail || isEmailVerified === undefined || !password){
         return res
         .status(400)
         .json(new ApiResponse(400,{message:"All fields are required"}, "Bad Request"));
@@ -42,12 +42,16 @@ export const Registration = async (req,res) => {
         const hashedPassword = await bcrypt.hash(password, 10); 
 
         const user = new User({
-            name,
+            FirstName,
+            LastName,
+            EnrollmentNumber,
+            mobileNumber,
             primaryEmail,
             secondaryEmail,
             hashpassword: hashedPassword,
             isEmailVerified,
-            role
+            role,
+            passingYear
         });
 
         const result = await user.save();
@@ -83,6 +87,8 @@ export const Login = async (req, res) => {
           new ApiResponse(404, { message: "User not found" }, "Not Found")
         );
       }
+
+      
       
       
       // Compare password (fix: use user.password not hashpassword)
@@ -92,7 +98,21 @@ export const Login = async (req, res) => {
           new ApiResponse(401, { message: "Invalid Password" }, "Unauthorized")
         );
       }
+
+      // if(user.isEmailVerified === false){
+
+      // }
   
+
+      // Check if user is verified
+      const result = {
+        EnrollmentNumber : user.EnrollmentNumber,
+        isAlumni : parseInt(user.passingYear) < new Date().getFullYear() ? true : false,
+        role:user.role === 'user' ? parseInt(user.passingYear) < new Date().getFullYear() ? "Alumni" : user.role : user.role,
+        email: user.primaryEmail,
+        mobileNumber: user.isEmailVerified,
+      }
+
       // Generate JWT token
       const token = generateToken(user._id, user.role);
   
@@ -105,7 +125,7 @@ export const Login = async (req, res) => {
       });
   
       return res.status(200).json(
-        new ApiResponse(200, { message: "Login successful", user }, "Success")
+        new ApiResponse(200, { message: "Login successful", result }, "Login Success")
       );
     } catch (error) {
       console.log("Error in Login:", error);
@@ -115,3 +135,64 @@ export const Login = async (req, res) => {
     }
   };
   
+
+  export const checkCurrentUser = async (req, res) => {
+    try {
+      console.log("Checking current user");
+
+      console.log(req.cookies.token)
+
+      //const decoded = req.cookies.token;
+      // if (!decoded) {
+      //   return res.status(401).json(
+      //     new ApiResponse(401, { message: "Unauthorized" }, "Unauthorized")
+      //   );
+      // }
+      //console.log(verifyToken(req.cookies.token))
+      if(verifyToken(req.cookies.token) === false){
+        console.log("Token is not valid")
+        return res.status(401).json(
+          new ApiResponse(401, { message: "Unauthorized" }, "Unauthorized")
+        );
+      }
+
+
+      // Decode the token to get user ID
+
+
+      const decoded = decodeToken(req.cookies.token);
+      if (!decoded) {
+        return res.status(401).json(
+          new ApiResponse(401, { message: "Unauthorized" }, "Unauthorized")
+        );
+      }
+
+      // Find user by ID
+      const user = await User.findById(decoded).select("-hashpassword");
+
+      if(!user){
+        return res.status(404).json(
+          new ApiResponse(404, { message: "User not found" }, "Not Found")
+        );
+      }
+
+      const result = {
+        EnrollmentNumber : user.EnrollmentNumber,
+        isAlumni : parseInt(user.passingYear) < new Date().getFullYear() ? true : false,
+        role:user.role === 'user' ? parseInt(user.passingYear) < new Date().getFullYear() ? "Alumni" : user.role : user.role,
+        email: user.primaryEmail,
+        mobileNumber: user.isEmailVerified,
+      }
+
+        return res.status(200).json(
+          new ApiResponse(200, { message: "User found", result }, "User Found")
+        );
+      
+      
+    } catch (error) {
+      console.log("Error in Login:", error);
+      return res.status(500).json(
+        new ApiResponse(500, null, "Internal Server Error")
+      );
+    }
+  }
