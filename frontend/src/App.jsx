@@ -9,7 +9,7 @@ import Register from "./AppComponents/Registration/Register.jsx"
 import Layout from "./AppComponents/Layout.jsx"
 import { RouterProvider } from 'react-router-dom'
 import DiscussionForum from './AppComponents/DiscussonForms/DiscussionForm.jsx'
-import IndivialCard from './AppComponents/SubComponents/Disussions/IndivialCard.jsx'
+import IndivialCard from './AppComponents/DiscussonForms/SubComponents/Disussions/IndivialCard.jsx'
 import JobPortal from './AppComponents/JobPortal.jsx'
 import EventsPage from './AppComponents/Events/Events.jsx'
 import FindAlumni from './AppComponents/FindAlumni/FindAlumni.jsx'
@@ -48,12 +48,12 @@ function App() {
     <>
      {/* <ProgressProvider>
       <ProgressBar /> */}
-        <SidebarProvider className='w-full'>
+       
              <div className='h-screen'>
               <RouterProvider router={route} />
               <Toaster position="top-center" richColors/>
               </div>
-        </SidebarProvider>
+      
       {/* </ProgressProvider> */}
     </>
   )

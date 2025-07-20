@@ -90,7 +90,8 @@ const Login = () => {
               <input type="checkbox" className="accent-blue-500" />
               <span>Remember Me</span>
             </label>
-            <Link to="#" className="underline">Forgot Password?</Link>
+
+            <Link to="/register" className="underline bg-">Create Your Account</Link>
           </div>
 
           <button
@@ -99,6 +100,11 @@ const Login = () => {
           >
             Proceed
           </button>
+          <div className="flex justify-end items-end text-sm text-gray-500">
+           
+
+            <Link to="/" className="underline bg-">Forgot Your Account?</Link>
+          </div>
         </form>
 
         <div className="text-center py-4 text-gray-400">OR USE</div>

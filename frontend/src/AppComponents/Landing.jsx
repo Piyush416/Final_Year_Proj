@@ -2,7 +2,9 @@ import React from 'react'
 import logo from '../assets/undraw_graduation.svg'
 import { useProgress } from '../Contexts/ProgressContext.jsx'
 import { createAxiosInstance } from '../axios/axiosInstance';
-
+import { Button } from "@/components/ui/button"
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -156,15 +158,28 @@ const Faculty = [
 
 
 const Landing = () => {
-
+    const navigate = useNavigate()
     const { showProgress, hideProgress } = useProgress();
     const axiosInstance = createAxiosInstance(showProgress, hideProgress);
-    showProgress()
+    //showProgress()
     // axiosInstance.get('/api/t')
 
 
     return (
         <div className='bg-black w-full min-h-screen' style={{ backgroundColor: 'whitesmoke' }}>
+            <div className='flex flex-col justify-around items-end'>
+                <div>
+                    
+                </div>
+                <div className='mt-2'>
+                <Button className="space-x-1 mr-2 px-5 py-6 gap-5 cursor-pointer hover:bg-blue-400" variant="link" onClick={() => navigate('/login')}>
+                    Login
+                </Button>
+                <Button className="space-x-1.5 px-5 py-6 gap-5 cursor-pointer hover:bg-blue-400" variant="link" onClick={() => navigate('/register')}>
+                    Registration
+                </Button>
+                </div>
+            </div>
             {/* About Parul University */}
             <div className='flex flex-col justify-center items-center p-10'>
                 <p>Parul University Alumni Portal</p>

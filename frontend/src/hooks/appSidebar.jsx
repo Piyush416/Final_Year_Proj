@@ -14,34 +14,10 @@ import { useProgress } from '../Contexts/ProgressContext.jsx'
 import { createAxiosInstance } from '../axios/axiosInstance';
 import React, { useState } from 'react'
 import { useEffect } from "react";
+import { SidebarFooter } from "../components/ui/sidebar.js";
+import { Button } from "@/components/ui/button"
+
 // Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
 
 const iconMap = {
   "Landing Page":Home,
@@ -87,9 +63,9 @@ export function AppSidebar() {
                 {items.map((item, index) => (
                   <SidebarMenuItem
                     key={item.title}
-                    className={index !== 0 ? "mt-3" : ""}
+                    className={index !== 0 ? "mt-4" : ""}
                   >
-                    <SidebarMenuButton asChild className="px-4 py-3">
+                    <SidebarMenuButton asChild className="px-6 py-6 hover:bg-blue-300" >
                       <a
                         href={item.url}
                         className="flex items-center gap-3 text-lg px-4 py-3"
@@ -104,6 +80,9 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+        <SidebarFooter>
+          <Button variant="destructive">Logout</Button>
+        </SidebarFooter>
       </Sidebar>
     )
   }

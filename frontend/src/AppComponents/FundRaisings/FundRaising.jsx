@@ -18,7 +18,7 @@ const FundraisingOptions = () => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-6 w-full min-h-screen">
+    <div className="shadow-lg p-6 w-full min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-center">Funding Options</h1>
 
       {!showForm ? (

@@ -189,12 +189,24 @@ const Register = () => {
           </div>
           {errors.terms && <p className="text-red-500 text-sm">{errors.terms.message}</p>}
 
-          <button
+         <div className='flex space-x-2'>
+         <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition duration-200"
+            className="w-1/2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition duration-200"
           >
             Create Account
           </button>
+
+          
+
+          <button
+            type="submit"
+            onClick={() => navigate("/login")}
+            className="w-1/2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition duration-200"
+          >
+            Login Into Your Account
+          </button>
+         </div>
         </form>
 
         <div className="text-center pt-8 pb-4 text-gray-400">OR</div>

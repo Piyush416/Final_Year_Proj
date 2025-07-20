@@ -106,6 +106,7 @@ export const Login = async (req, res) => {
 
       // Check if user is verified
       const result = {
+        id: user._id,
         EnrollmentNumber : user.EnrollmentNumber,
         isAlumni : parseInt(user.passingYear) < new Date().getFullYear() ? true : false,
         role:user.role === 'user' ? parseInt(user.passingYear) < new Date().getFullYear() ? "Alumni" : user.role : user.role,

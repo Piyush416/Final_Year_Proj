@@ -12,7 +12,7 @@ const Inbox = () => {
   const [selectedChat, setSelectedChat] = useState(null);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-3/5 bg-white shadow-lg rounded-2xl overflow-hidden flex">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-50 p-4 overflow-y-auto">

@@ -1,39 +1,37 @@
-import { Link } from 'react-router-dom'
-import logo from '../assets/undraw_graduation.svg'
-
-const NavbarData = [
-  { name: "Discussion Forums", link: "/discussions" },
-  { name: "Mentorship", link: "/mentorship" },
-  { name: "Opportunities", link: "/opportunities" },
-  { name: "Network", link: "/networks" },
-  { name: "Inbox", link: "/inboxs" },
-  { name: "Event", link: "/events" },
-  { name: "Find Alumni", link: "/findAlumnies" },
-  { name: "Fund Raising", link: "/fund-raising" }
-]
+import { User } from "lucide-react"
+import { useAuthStore } from "../store/useAuthStore"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 const Nav = () => {
+  const navigate = useNavigate()
+  const { user, isAuthenticated, checkAuth } = useAuthStore()
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      navigate("/login")
+    }
+  }, [isAuthenticated, navigate])
+
   return (
-    <>
-      <div className='flex bg-gray-200 justify-between items-center'>
-        <img src={logo} width='200' className='px-8 py-8' alt='Logo' />
-        <div className='flex p-8 gap-2.5 items-center'>
-          <Link to="/" className='bg-gray-100 text-black rounded-full py-2 px-8 font-bold hover:underline'>Home</Link>
-          <Link to="/register" className='bg-gray-100 text-black rounded-full py-2 px-8 font-bold hover:underline'>SIGN UP</Link>
-          <Link to="/login" className='bg-gray-100 text-black rounded-full py-2 px-8 font-bold hover:underline'>LOGIN</Link>
+    <div className="w-full rounded-lg m-2">
+      <div className="flex items-center justify-between max-w-screen-2xl mx-auto p-4">
+        {/* Left Side */}
+        <div className="text-lg font-semibold">
+          Alumni: Bridging the Generation
+        </div>
+
+        {/* Right Side */}
+        <div className="flex flex-row items-center text-lg space-x-3">
+          <div>
+            Welcome, {user?.email || "Guest"}
+          </div>
+          <div className="cursor-pointer transition-transform duration-200 hover:scale-110">
+            <User />
+          </div>
         </div>
       </div>
-
-      <div className='flex flex-row px-8 py-4 justify-around bg-black'>
-        {
-          NavbarData.map((item, index) => (
-            <p key={index} className='text-white font-bold hover:bg-amber-800 rounded-full px-4 py-2'>
-              <Link to={item.link}>{item.name}</Link>
-            </p>
-          ))
-        }
-      </div>
-    </>
+    </div>
   )
 }
 

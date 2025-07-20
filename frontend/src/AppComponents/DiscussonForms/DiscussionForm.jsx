@@ -16,7 +16,7 @@ const DiscussionForum = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Discussion Forums</h1>
       {forums.map((forum) => (
         <div key={forum.id} className="bg-white p-6 rounded-2xl shadow-lg max-w-2xl w-full mb-6 cursor-pointer" onClick={() => handleClick(forum.id)}>
