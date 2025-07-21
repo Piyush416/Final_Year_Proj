@@ -70,7 +70,7 @@ const DiscussionForum = () => {
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-4xl font-bold text-gray-800">Discussion Forums</h1>
           <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl text-base transition-all cursor-pointer">
-            <Link to="/discussion-forums/create-discussion">Create Discussion or Thread</Link>
+            <Link to="/discussions/create-discussion">Create Discussion or Thread</Link>
           </Button>
         </div>
         

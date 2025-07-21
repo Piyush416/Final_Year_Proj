@@ -38,7 +38,7 @@ const route = createBrowserRouter(
       <Route path='/inboxs' element={<ProtectedRoute><Inbox /></ProtectedRoute>} />
       <Route path='/profile' element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
       <Route path='/fund-raising' element={<ProtectedRoute> <FundraisingOptions /> </ProtectedRoute>} />
-      <Route path='/discussion-forums/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
+      <Route path='/discussions/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
      </Route>
   )
 )
