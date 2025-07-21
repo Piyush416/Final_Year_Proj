@@ -52,7 +52,7 @@ export function AppSidebar() {
   }, []);
 
     return (
-      <Sidebar className="">
+      <Sidebar className="" collapsible="icon">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>

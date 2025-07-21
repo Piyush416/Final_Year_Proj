@@ -20,6 +20,7 @@ import { ProgressProvider } from "./Contexts/ProgressContext.jsx"
 import ProgressBar from "./Loaders/ProgressBar.jsx"
 import Dashboard from './AppComponents/Dashboard/Dashboard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
+import CreateDiscussion from './AppComponents/DiscussonForms/SubComponents/Disussions/CreateDisussions.jsx'
 
 
 const route = createBrowserRouter(
@@ -37,6 +38,7 @@ const route = createBrowserRouter(
       <Route path='/inboxs' element={<ProtectedRoute><Inbox /></ProtectedRoute>} />
       <Route path='/profile' element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
       <Route path='/fund-raising' element={<ProtectedRoute> <FundraisingOptions /> </ProtectedRoute>} />
+      <Route path='/discussion-forums/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
      </Route>
   )
 )

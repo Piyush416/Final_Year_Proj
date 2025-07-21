@@ -4,12 +4,14 @@ const userSchema = new mongoose.Schema({
     FirstName:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        select:true
     },
     LastName:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        select:true
     },
     EnrollmentNumber:{
         type:String,

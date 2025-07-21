@@ -69,6 +69,8 @@ export const Registration = async (req,res) => {
 export const Login = async (req, res) => {
     try {
       const { email, password } = req.body;
+
+      console.log(req.body)
   
       // Validate input
       if (!email || !password) {
@@ -77,10 +79,13 @@ export const Login = async (req, res) => {
         );
       }
   
+
       // Find user by primaryEmail or secondaryEmail
       const user = await User.findOne({
         $or: [{ primaryEmail: email }, { secondaryEmail: email }]
       });
+
+      console.log(user)
   
       if (!user) {
         return res.status(404).json(

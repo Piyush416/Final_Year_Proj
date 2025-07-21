@@ -6,7 +6,11 @@ const CommentSchema = new mongoose.Schema({
     ref: 'Document'
   },
   text: String,
-  authorId: String,
+  //authorId: String,
+  authorId : {
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -16,7 +20,10 @@ const CommentSchema = new mongoose.Schema({
 const DocumentSchema = new mongoose.Schema({
   title: String,
   content: String,
-  authorId: String,
+  authorId: {
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  },
   createdAt: {
     type: Date,
     default: Date.now

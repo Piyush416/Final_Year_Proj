@@ -16,17 +16,17 @@ export const getDiscussionForm = async (req, res) => {
 
 export const createDiscussionForm = async (req, res) => {
     try {
-        const { title, content, authorId, tags } = req.body;
-        console.log(req.body)
+        const { title, content, tags } = req.body;
+        console.log(req.user)
 
-        if (!title || !content || !authorId) {
+        if (!title || !content || !req.user.id) {
             return res.status(400).json({ message: "Title, content, and authorId are required." });
         }
 
         const discussionForm = new Document({
             title,
             content,
-            authorId,
+            authorId:req.user.id,
             tags: tags || [],
             createdAt: new Date()
         });
@@ -99,7 +99,7 @@ export const getDiscussionFormById = async (req, res) => {
         const { id } = req.params;
 
         const page = parseInt(req.query.page) || 1;
-        const limit = 2
+        const limit = 10
         const skip = (page-1) *limit
 
         const document = await Document.findById(id).lean()
@@ -147,14 +147,14 @@ export const addComment = async (req, res) => {
     try {
 
         const { documentId, authorId, content } = req.body;
-        console.log(req.body)
-        if (!documentId || !authorId || !content) {
+        console.log(req.user)
+        if (!documentId || !req.user.id || !content) {
             return res.status(400).json({ message: "Document ID, author ID, and content are required." });
         }
 
         const comment = new Comment({
             documentId,
-            authorId,
+            authorId:req.user.id,
             text: content,
             createdAt: new Date()
         });
@@ -178,7 +178,16 @@ export const addComment = async (req, res) => {
 }
 export const getAllComments = async (req, res) => {
     try {
-        
+        // const {id} = req.params
+        // const getAllCommentonForumId = await Document.findById(id).populate("comments")
+        const {id} = req.params
+        const discussion = await Document.findById(id);
+
+        const comments = await Comment.find({documentId:id})
+                        .populate("authorId","FirstName LastName")
+
+        return res.status(200).json(new ApiResponse(201, comments, "Comment retrived successfully"));
+
     } catch (error) {
         console.log("Error:", error);
         return res
