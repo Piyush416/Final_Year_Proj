@@ -45,6 +45,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+   /* Chatbot */
+  --chatbot-primary: 217.2 91.2% 59.8%;
+  --chatbot-secondary: 280 100% 70%;
+  --chat-bubble-user: 217.2 91.2% 59.8%;
+  --chat-bubble-bot: 210 40% 96.1%;
+  --chat-input: 0 0% 100%;
 }
 
 @theme inline {
@@ -117,13 +123,61 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+    /* Chatbot specific colors - dark mode */
+    --chatbot-primary: 217.2 91.2% 59.8%;
+    --chatbot-secondary: 280 100% 70%;
+    --chat-bubble-user: 217.2 91.2% 59.8%;
+    --chat-bubble-bot: 217.2 32.6% 17.5%;
+    --chat-input: 222.2 84% 4.9%;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    @apply border-border
   }
   body {
     @apply bg-background text-foreground;
+    @apply bg-background text-foreground
   }
 }
+
+/* @keyframes chatbot-popup {
+  0% {
+    transform: translateY(1rem) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-chatbot-popup {
+  animation: chatbot-popup 0.4s ease-out forwards;
+} */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+

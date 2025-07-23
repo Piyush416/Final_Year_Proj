@@ -6,6 +6,7 @@ import { ProgressProvider } from '../Contexts/ProgressContext.jsx';
 import ProgressBar from '../Loaders/ProgressBar.jsx';
 import Nav from './Nav.jsx';
 import Breadcrumbs from './SubComponents/Breadcrumbs.jsx';
+import FloatingChatbot from './ChatBot/FloatingChatBox.jsx';
 
 const Layout = () => {
   const location = useLocation();
@@ -30,21 +31,23 @@ const Layout = () => {
               </div>
             </main> */}
             <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden bg-gray-50">
-  <div className="w-full px-4 sm:px-6 lg:px-8 flex-shrink-0 m-2 rounded-lg bg-white shadow">
-    <Nav />
-  </div>
-  <div className="w-full px-4">
-    <Breadcrumbs />
-  </div>
-  <div className="w-full min-w-0">
-    <Outlet />
-  </div>
-</main>
+              <div className="w-full px-4 sm:px-6 lg:px-8 flex-shrink-0 m-2 rounded-lg bg-white shadow">
+                  <Nav />
+              </div>
+            <div className="w-full px-4">
+            <Breadcrumbs />
+            </div>
+            <div className="w-full min-w-0">
+            <Outlet />
+            <FloatingChatbot/>
+              </div>
+            </main>
           </div>
         </SidebarProvider>
       ) : (
         <div className="min-h-screen w-full bg-gray-50">
           <Outlet />
+          {/* <FloatingChatbot /> */}
         </div>
       )}
     </ProgressProvider>

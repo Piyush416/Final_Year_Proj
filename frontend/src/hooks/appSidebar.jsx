@@ -16,6 +16,7 @@ import React, { useState } from 'react'
 import { useEffect } from "react";
 import { SidebarFooter } from "../components/ui/sidebar.js";
 import { Button } from "@/components/ui/button"
+import { useAuthStore } from "../store/useAuthStore.js";
 
 // Menu items.
 
@@ -28,10 +29,12 @@ const iconMap = {
   "Inbox":Inbox,
   "Event":Calendar,
   "Find Alumni":SearchCheckIcon,
-  "Fund Raising":Radius
+  "Fund Raising":Radius,
+  "Settings":Settings
 }
 
 export function AppSidebar() {
+  const {user,isAuthenticated} = useAuthStore()
   const [items,setItems] = useState([])
   const { showProgress, hideProgress } = useProgress();
   const axiosInstance = createAxiosInstance(showProgress, hideProgress);
@@ -39,13 +42,18 @@ export function AppSidebar() {
   useEffect(() => {
     axiosInstance.get('api/configuration?name=Sidebar').then((response) => {
       console.log("Response from Sidebar Configuration:", response.data.data);
-      const mappedItems = response.data.data.map((item) => ({
-        title:item.name,
-        url:item.link,
-        icon: iconMap[item.name] || Home // Fallback to Option icon if not found
-      }))
+
+      const mappedItems = response.data.data
+                          .filter(item => {
+                            if(item.name === "Settings" && user.role !== "admin") return false;
+                            return true
+                          })
+                          .map((item) => ({
+                            title:item.name,
+                            url:item.link,
+                            icon:iconMap[item.name] || Home
+                          }))
       setItems(mappedItems)
-      console.log("----------",mappedItems)
     }).catch((error) => {
       console.log("Error fetching sidebar configuration:", error);
     })
