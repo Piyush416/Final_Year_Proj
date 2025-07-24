@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react"
 
 // Funding options list
 const fundingOptions = [
@@ -50,38 +51,38 @@ const FundraisingOptions = () => {
           {/* Impact Info Cards */}
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="mt-10 space-y-30">
-           <div className="bg-gray-100 p-4 rounded shadow">
-              <h4 className="font-bold text-gray-700 mb-4"> Scholarships</h4>
-              <p className="text-sm text-gray-600">
-                Help bright, deserving students achieve their academic dreams by contributing to scholarship programs.
-                Your support can remove financial barriers, reward excellence, and ensure that no talented student is left behind due to economic challenges.
-                Every contribution brings hope and opportunity.
-              </p>
-            </div>
-            </div>
-
-            <div className="mt-10 space-y-30">
-           <div className="bg-gray-100 p-4 rounded shadow">
-              <h4 className="font-bold text-gray-600 mb-4"> Campus Development</h4>
-              <p className="text-sm text-gray-600">
-                Support the growth of modern learning spaces by contributing to the development of classrooms, labs, libraries, and other essential infrastructure. Your donation helps foster a vibrant, technology-enabled campus environment for future generations.
-              </p>
-            </div>
+              <div className="bg-gray-100 p-4 rounded shadow">
+                <h4 className="font-bold text-gray-700 mb-4"> Scholarships</h4>
+                <p className="text-sm text-gray-600">
+                  Help bright, deserving students achieve their academic dreams by contributing to scholarship programs.
+                  Your support can remove financial barriers, reward excellence, and ensure that no talented student is left behind due to economic challenges.
+                  Every contribution brings hope and opportunity.
+                </p>
+              </div>
             </div>
 
             <div className="mt-10 space-y-30">
-            <div className="bg-gray-100 p-4 rounded shadow">
+              <div className="bg-gray-100 p-4 rounded shadow">
+                <h4 className="font-bold text-gray-600 mb-4"> Campus Development</h4>
+                <p className="text-sm text-gray-600">
+                  Support the growth of modern learning spaces by contributing to the development of classrooms, labs, libraries, and other essential infrastructure. Your donation helps foster a vibrant, technology-enabled campus environment for future generations.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 space-y-30">
+              <div className="bg-gray-100 p-4 rounded shadow">
                 <h4 className="font-bold text-gray-600 mb-4"> Events & Seminars</h4>
                 <p className="text-sm text-gray-600">
                   Help organize academic, cultural, and career development events that inspire learning beyond the classroom. Your support enables interactive seminars, expert talks, and creative platforms that enrich students’ skills, confidence, and overall educational journey.
                 </p>
               </div>
-              </div>
+            </div>
 
           </div>
 
           {/* Contact Info */}
-          
+
           <div className="mt-34 text-center text-sm text-gray-500">
             Need assistance? Contact us at{" "}
             <a href="mailto:support@alumniconnect.edu" className="text-blue-600 underline">
@@ -121,7 +122,17 @@ const ContributionForm = ({ selectedCategory, onBack }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
+    <motion.form
+      initial={{
+        x: 10,
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.5 }
+      }}
+      onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md ">
       <h3 className="text-lg font-bold mb-4 text-center">Contribute to: {selectedCategory}</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -228,7 +239,7 @@ const ContributionForm = ({ selectedCategory, onBack }) => {
           Submit
         </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

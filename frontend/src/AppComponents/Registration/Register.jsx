@@ -7,6 +7,9 @@ import { useProgress } from "../../Contexts/ProgressContext"
 import { createAxiosInstance } from "../../axios/axiosInstance";
 import {toast} from "sonner"
 import { useNavigate } from 'react-router-dom';
+import { gsap } from "gsap";
+
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()

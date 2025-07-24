@@ -37,7 +37,6 @@ const Login = () => {
       toast.success("LoggedIn Successfully")
       // console.log(response.data.data.result)
       navigate('/dashboard')
-
       //navigate('/dashboard')
     }).catch((error) => {
       console.log(error)
@@ -51,6 +50,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       {/* Form Container */}
       <div className="w-full max-w-md bg-white shadow-2xl rounded-xl p-8">
+
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold text-gray-800">Login to Alumni</h1>
           <p className="text-gray-500 text-sm">Connect with your alumni community</p>
