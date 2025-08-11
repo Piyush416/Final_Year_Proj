@@ -2,7 +2,7 @@ import { User } from "../Models/Registration.js";
 import {ApiResponse} from "../Utils/ApiResponse.js";
 import bcrypt from "bcrypt";
 import { generateToken, verifyToken,decodeToken } from "../Utils/jwt.js";
-
+import  Profile from "../Models/Profile.js";
 export const Registration = async (req,res) => {
     try {
        const {FirstName,LastName,EnrollmentNumber,mobileNumber,primaryEmail,secondaryEmail,isEmailVerified,role,password,passingYear} = req.body
@@ -166,6 +166,7 @@ export const Login = async (req, res) => {
       // Decode the token to get user ID
 
 
+
       const decoded = decodeToken(req.cookies.token);
       if (!decoded) {
         return res.status(401).json(
@@ -182,13 +183,21 @@ export const Login = async (req, res) => {
         );
       }
 
+      let profileData = await Profile.findOne({ userId: user._id });
+      
+
       const result = {
         EnrollmentNumber : user.EnrollmentNumber,
         isAlumni : parseInt(user.passingYear) < new Date().getFullYear() ? true : false,
         role:user.role === 'user' ? parseInt(user.passingYear) < new Date().getFullYear() ? "Alumni" : user.role : user.role,
         email: user.primaryEmail,
         mobileNumber: user.isEmailVerified,
+        isProfileDataAvailable: profileData ? true : false,
+        // isProfileDataAvailable: false
+
       }
+
+       
 
         return res.status(200).json(
           new ApiResponse(200, { message: "User found", result }, "User Found")
@@ -202,3 +211,5 @@ export const Login = async (req, res) => {
       );
     }
   }
+
+

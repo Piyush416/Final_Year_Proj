@@ -23,7 +23,7 @@ import ProtectedRoute from './ProtectedRoute.jsx'
 import CreateDiscussion from './AppComponents/DiscussonForms/SubComponents/Disussions/CreateDisussions.jsx'
 import Settings from './AppComponents/Settings/Settings.jsx'
 import AddOppurtunities from './AppComponents/Opportunities/AddOppurtunities.jsx'
-
+import ShowProfile from './Profile/ShowProfile.jsx'
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +43,7 @@ const route = createBrowserRouter(
       <Route path='/discussions/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>} />
       <Route path='/add-opportunity' element={<ProtectedRoute> <AddOppurtunities /> </ProtectedRoute>} />
+      <Route path='/show-profile' element={<ProtectedRoute> <ShowProfile /> </ProtectedRoute>} />
      </Route>
   )
 )
