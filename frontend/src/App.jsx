@@ -22,6 +22,7 @@ import Dashboard from './AppComponents/Dashboard/Dashboard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import CreateDiscussion from './AppComponents/DiscussonForms/SubComponents/Disussions/CreateDisussions.jsx'
 import Settings from './AppComponents/Settings/Settings.jsx'
+import AddOppurtunities from './AppComponents/Opportunities/AddOppurtunities.jsx'
 
 
 const route = createBrowserRouter(
@@ -41,6 +42,7 @@ const route = createBrowserRouter(
       <Route path='/fund-raising' element={<ProtectedRoute> <FundraisingOptions /> </ProtectedRoute>} />
       <Route path='/discussions/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>} />
+      <Route path='/add-opportunity' element={<ProtectedRoute> <AddOppurtunities /> </ProtectedRoute>} />
      </Route>
   )
 )
