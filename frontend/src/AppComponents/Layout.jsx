@@ -16,7 +16,6 @@ const Layout = () => {
   const noSidebarRoutes = ['/login', '/register', '/'];
   const shouldHideSidebar = noSidebarRoutes.includes(location.pathname);
   const { user, isAuthenticated, checkAuth } = useAuthStore()
-
   console.log("User Profile Data Available:", user.isProfileDataAvailable);
   
 
@@ -43,7 +42,7 @@ const Layout = () => {
               {/* {user.isPro} */}
               {
                 !user.isProfileAvailable ? (
-                  <Link className="p-4 font-semibold bg-red-100 rounded-3xl flex flex-row justify-start underline">
+                  <Link to={"/show-profile"} className="p-4 font-semibold bg-red-100 rounded-3xl flex flex-row justify-start underline">
                     Please complete your profile to access all features.<ChevronRight />
                   </Link>) : (<></>
                   )

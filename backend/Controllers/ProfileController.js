@@ -15,7 +15,7 @@ export const showProfile = async (req, res) => {
          // Fetch the profile associated with the user
         const profile = await Profile.findOne({ userId }); // Populate user details
         if (!profile) {
-            return res.status(404).json(new ApiResponse(404, {userProfile,profile}, "Profile not found"));
+            return res.status(200).json(new ApiResponse(200, {userProfile,profile}, "Profile not found"));
         }
 
         return res.status(200).json(new ApiResponse(200, profile, "Profile retrieved successfully"));

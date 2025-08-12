@@ -20,7 +20,7 @@ const Faculty = [
         "facultyName": "Faculty of Engineering and Technology",
         "college": [
             "Parul Institue of Engineering and Technology",
-            "Parul Institue of Technolgy"
+            "Parul Institue of Technology"
         ],
         "backgroundColor": getRandomColor()
     },
