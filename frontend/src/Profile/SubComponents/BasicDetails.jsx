@@ -3,7 +3,7 @@ import { Edit } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 export default function BasicDetails({profileData}) {
-
+  
 
    return (
     <div className="p-6 space-y-6 bg-gray-100">

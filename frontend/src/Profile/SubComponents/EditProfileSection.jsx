@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useProgress } from "../../Contexts/ProgressContext.jsx";
+import { createAxiosInstance } from "../../axios/axiosInstance.js";
 
 export default function EditBasicDetails() {
   const { id } = useParams();
-  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
-
+  const [data,setData] = useState({});
+  const navigate = useNavigate();
+  const { showProgress, hideProgress } = useProgress();
+  const axiosInstance = createAxiosInstance(showProgress, hideProgress);
   const {
     register,
     handleSubmit,
@@ -18,85 +23,82 @@ export default function EditBasicDetails() {
   } = useForm();
 
   const allBranches = [
-  // Engineering
-  "Computer Science",
-  "Information Technology",
-  "Mechanical Engineering",
-  "Civil Engineering",
-  "Electrical Engineering",
-  "Electronics & Communication",
-  "Automobile Engineering",
-  "Chemical Engineering",
-  "Mechatronics Engineering",
-  "Biomedical Engineering",
-  "Robotics and Automation",
+    // Engineering
+    "Computer Science",
+    "Information Technology",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Electrical Engineering",
+    "Electronics & Communication",
+    "Automobile Engineering",
+    "Chemical Engineering",
+    "Mechatronics Engineering",
+    "Biomedical Engineering",
+    "Robotics and Automation",
 
-  // Medical
-  "MBBS",
-  "Physiotherapy",
-  "Nursing",
-  "Pharmacy",
-  "Ayurveda",
-  "Homeopathy",
-  "Medical Laboratory Technology",
-  "Radiology and Imaging",
-  "Optometry",
-  "Public Health",
+    // Medical
+    "MBBS",
+    "Physiotherapy",
+    "Nursing",
+    "Pharmacy",
+    "Ayurveda",
+    "Homeopathy",
+    "Medical Laboratory Technology",
+    "Radiology and Imaging",
+    "Optometry",
+    "Public Health",
 
-  // Commerce
-  "B.Com (General)",
-  "B.Com (Accounting & Finance)",
-  "B.Com (Taxation)",
-  "BBA",
-  "BBA (International Business)",
-  "M.Com",
-  "MBA",
+    // Commerce
+    "B.Com (General)",
+    "B.Com (Accounting & Finance)",
+    "B.Com (Taxation)",
+    "BBA",
+    "BBA (International Business)",
+    "M.Com",
+    "MBA",
 
-  // Arts
-  "BA English",
-  "BA Psychology",
-  "BA Sociology",
-  "BA Political Science",
-  "BA History",
-  "BA Economics",
-  "Fine Arts",
+    // Arts
+    "BA English",
+    "BA Psychology",
+    "BA Sociology",
+    "BA Political Science",
+    "BA History",
+    "BA Economics",
+    "Fine Arts",
 
-  // Library / Information Science
-  "Bachelor of Library Science (B.Lib.Sc.)",
-  "Master of Library Science (M.Lib.Sc.)",
-  "Diploma in Library Science"
-];
-
+    // Library / Information Science
+    "Bachelor of Library Science (B.Lib.Sc.)",
+    "Master of Library Science (M.Lib.Sc.)",
+    "Diploma in Library Science",
+  ];
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       try {
-        let profile;
-        if (location.state?.profileData) {
-          profile = location.state.profileData;
-        } else {
-          const res = await axios.get(`/api/profile/${id}`);
-          profile = res.data.data;
-        }
+        const res = await axiosInstance.get(`/api/profile`);
+        console.log("Profile Data in Edit:", res.data.data.profile);
+        const profile = res.data.data.profile || {};
+        setData(profile);
 
         reset({
           college: profile?.college || "",
           degree: profile?.degree || "",
-          branch: profile?.branch || "",
+          branchName: profile?.branchName || "",
           bio: profile?.bio || "",
           location: profile?.location || "",
           website: profile?.website || "",
-          twitter: profile?.twitter || "",
-          facebook: profile?.facebook || "",
-          linkedin: profile?.linkedin || "",
+          twitter: profile?.socialLinks.twitter || "",
+          facebook: profile?.socialLinks.facebook || "",
+          linkedin: profile?.socialLinks.linkedin || "",
           skills: Array.isArray(profile?.skills)
             ? profile.skills.join(", ")
             : profile?.skills || "",
         });
       } catch (error) {
         console.error("Error fetching profile:", error);
-        toast.error("Failed to fetch profile data");
+        toast.info("No profile data found. Please update your profile first.");
+        //toast.error("Failed to fetch profile data");
       } finally {
         setLoading(false);
       }
@@ -104,11 +106,8 @@ export default function EditBasicDetails() {
 
     const loadDropDownItems = async () => {
       try {
-        const response = await axios.get(
-          "/api/configuration?name=Collegename"
-        );
+        const response = await axiosInstance.get("/api/configuration?name=Collegename");
         const mappedItems = response.data.data || [];
-        console.log("Dropdown items:", mappedItems);
         setItems(mappedItems);
       } catch (error) {
         console.error("Error fetching college list:", error);
@@ -117,10 +116,9 @@ export default function EditBasicDetails() {
 
     loadData();
     loadDropDownItems();
-  }, [id, location.state, reset]);
+  }, [id, reset]);
 
   const onSubmit = async (data) => {
-    console.log("Updated profile:", data);
     try {
       const payload = {
         ...data,
@@ -128,8 +126,9 @@ export default function EditBasicDetails() {
           ? data.skills.split(",").map((skill) => skill.trim())
           : [],
       };
-      await axios.put(`/api/profile`, payload);
+      await axiosInstance.put(`/api/updateprofile`, payload);
       toast.success("Profile updated successfully!");
+      navigate(`/show-profile`);
     } catch (error) {
       console.error("Error updating profile:", error);
       toast.error("Failed to update profile");
@@ -153,9 +152,7 @@ export default function EditBasicDetails() {
             <label className="block col-span-2">
               <span className="font-medium">College</span>
               <select
-                {...register("college", {
-                  required: "College is required",
-                })}
+                {...register("college", { required: "College is required" })}
                 className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               >
                 <option value="">Select a college</option>
@@ -172,39 +169,30 @@ export default function EditBasicDetails() {
               )}
             </label>
 
-              {/* <select {...register("branch")}>
-  {allBranches.map(branch => (
-    <option key={branch} value={branch}>
-      {branch}
-    </option>
-  ))}
-</select> */}
-
-             <label className="block col-span-2">
+            {/* Branch Dropdown */}
+            <label className="block col-span-2">
               <span className="font-medium">Branch</span>
               <select
-                {...register("branch", {
-                  required: "Branch is required",
-                })}
+                {...register("branchName", { required: "Branch is required" })}
                 className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               >
                 <option value="">Select a Branch</option>
-               {allBranches.map(branch => (
-                <option key={branch} value={branch}>
-                {branch}
-                </option>
+                {allBranches.map((branch) => (
+                  <option key={branch} value={branch}>
+                    {branch}
+                  </option>
                 ))}
               </select>
-              {errors.branch && (
+              {errors.branchName && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.branch.message}
+                  {errors.branchName.message}
                 </p>
               )}
             </label>
-            {/* Remaining Fields */}
+
+            {/* Other fields */}
             {[
-              
-              { label: "Bio", name: "bio", textarea: true },
+             
               { label: "Location", name: "location" },
               {
                 label: "Website",
@@ -231,6 +219,7 @@ export default function EditBasicDetails() {
                 errorMsg: "Must be a valid URL",
               },
               { label: "Skills (comma separated)", name: "skills" },
+               { label: "Bio", name: "bio", textarea: true }
             ].map((field, index) => (
               <label
                 key={index}
@@ -242,9 +231,6 @@ export default function EditBasicDetails() {
                 {field.textarea ? (
                   <textarea
                     {...register(field.name, {
-                      required: field.required
-                        ? `${field.label} is required`
-                        : false,
                       pattern: field.pattern
                         ? {
                             value: field.pattern,
@@ -258,9 +244,6 @@ export default function EditBasicDetails() {
                 ) : (
                   <input
                     {...register(field.name, {
-                      required: field.required
-                        ? `${field.label} is required`
-                        : false,
                       pattern: field.pattern
                         ? {
                             value: field.pattern,

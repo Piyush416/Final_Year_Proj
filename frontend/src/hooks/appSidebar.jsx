@@ -68,7 +68,7 @@ export function AppSidebar() {
             </SidebarGroupLabel>
             <SidebarGroupContent className="mt-15">
               {
-                !user.isProfileAvailable ? (<>
+                user.isProfileDataAvailable === false ? (<>
                   <SidebarMenu>
                 {items.map((item, index) => (
                   <SidebarMenuItem

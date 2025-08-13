@@ -11,13 +11,13 @@ export default function ProfileSections({ profileData }) {
     defaultValues: {
       college: profile?.college || "",
       degree: profile?.degree || "",
-      branch: profile?.branch || "",
+      branch: profile?.branchName || "",
       bio: profile?.bio || "",
       location: profile?.location || "",
       website: profile?.website || "",
-      twitter: profile?.twitter || "",
-      facebook: profile?.facebook || "",
-      linkedin: profile?.linkedin || "",
+      twitter: profile?.socialLinks.twitter || "",
+      facebook: profile?.socialLinks.facebook || "",
+      linkedin: profile?.socialLinks.linkedin || "",
       skills: Array.isArray(profile?.skills)
         ? profile.skills.join(", ")
         : profile?.skills || "",
@@ -48,7 +48,6 @@ export default function ProfileSections({ profileData }) {
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             {[
               { label: "College", name: "college" },
-              { label: "Degree", name: "degree" },
               { label: "Branch", name: "branch" },
               { label: "Bio", name: "bio", textarea: true },
               { label: "Location", name: "location" },

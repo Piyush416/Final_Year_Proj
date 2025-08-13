@@ -18,7 +18,7 @@ export const showProfile = async (req, res) => {
             return res.status(200).json(new ApiResponse(200, {userProfile,profile}, "Profile not found"));
         }
 
-        return res.status(200).json(new ApiResponse(200, profile, "Profile retrieved successfully"));
+        return res.status(200).json(new ApiResponse(200, {userProfile,profile}, "Profile retrieved successfully"));
     } catch (error) {
          return res
         .status(500)
@@ -40,12 +40,11 @@ export const UpdateProfile = async (req, res) => {
             bio,
             location,
             website,
-            socialLinks: {
-                twitter,
-                facebook,
-                linkedin,
-                instagram
-            }
+            twitter,
+            facebook,
+            linkedin,
+            instagram
+            
         } = req.body;
 
         const profileData = {
