@@ -16,14 +16,14 @@ import FindAlumni from './AppComponents/FindAlumni/FindAlumni.jsx'
 import Inbox from './AppComponents/Inbox/Inbox.jsx'
 import Profile from './AppComponents/SubComponents/Profile.jsx'
 import FundraisingOptions from "./AppComponents/FundRaisings/FundRaising.jsx";
-import { ProgressProvider } from "./Contexts/ProgressContext.jsx"
-import ProgressBar from "./Loaders/ProgressBar.jsx"
 import Dashboard from './AppComponents/Dashboard/Dashboard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import CreateDiscussion from './AppComponents/DiscussonForms/SubComponents/Disussions/CreateDisussions.jsx'
 import Settings from './AppComponents/Settings/Settings.jsx'
-
-
+import AddOppurtunities from './AppComponents/Opportunities/AddOppurtunities.jsx'
+import ShowProfile from './Profile/ShowProfile.jsx'
+import EditProfileSection from './Profile/SubComponents/EditProfileSection.jsx'
+import AddEvents from './AppComponents/Events/SubComponents/AddEvents.jsx'
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
@@ -41,6 +41,10 @@ const route = createBrowserRouter(
       <Route path='/fund-raising' element={<ProtectedRoute> <FundraisingOptions /> </ProtectedRoute>} />
       <Route path='/discussions/create-discussion' element={<ProtectedRoute> <CreateDiscussion /> </ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>} />
+      <Route path='/add-opportunity' element={<ProtectedRoute> <AddOppurtunities /> </ProtectedRoute>} />
+      <Route path='/show-profile' element={<ProtectedRoute> <ShowProfile /> </ProtectedRoute>} />
+      <Route path="/edit-profile/:id" element={<ProtectedRoute> <EditProfileSection/> </ProtectedRoute>} />
+      <Route path="/events/add-events" element={ <ProtectedRoute><AddEvents /></ProtectedRoute> } />
      </Route>
   )
 )

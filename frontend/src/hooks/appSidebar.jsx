@@ -67,16 +67,18 @@ export function AppSidebar() {
                 <img src={logo} />
             </SidebarGroupLabel>
             <SidebarGroupContent className="mt-15">
-              <SidebarMenu>
+              {
+                user.isProfileDataAvailable === false ? (<>
+                  <SidebarMenu>
                 {items.map((item, index) => (
                   <SidebarMenuItem
                     key={item.title}
                     className={index !== 0 ? "mt-4" : ""}
                   >
-                    <SidebarMenuButton asChild className="px-6 py-6 hover:bg-blue-300" >
+                    <SidebarMenuButton asChild className="px-6 py-6 hover:bg-blue-300 pointer-events-none" >
                       <a
                         href={item.url}
-                        className="flex items-center gap-3 text-lg px-4 py-3"
+                        className="flex items-center gap-3 text-lg px-4 py-3 hover:bg-blue-300 pointer-events-auto"
                       >
                         <item.icon className="w-5 h-5" />
                         <span className="text-md">{item.title}</span>
@@ -85,6 +87,30 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
+                </>): (
+                  <>
+                    <SidebarMenu>
+                      {items.map((item, index) => (
+                      <SidebarMenuItem
+                        key={item.title}
+                        className={index !== 0 ? "mt-4" : ""}
+                      >
+                        <SidebarMenuButton asChild className="px-6 py-6 hover:bg-blue-300" >
+                          <a
+                            href={item.url}
+                            className="flex items-center gap-3 text-lg px-4 py-3"
+                          >
+                            <item.icon className="w-5 h-5" />
+                            <span className="text-md">{item.title}</span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                  </>
+                )
+              }
+              
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
