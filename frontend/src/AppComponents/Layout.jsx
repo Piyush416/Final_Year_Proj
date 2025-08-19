@@ -16,7 +16,7 @@ const Layout = () => {
   const noSidebarRoutes = ['/login', '/register', '/'];
   const shouldHideSidebar = noSidebarRoutes.includes(location.pathname);
   const { user, isAuthenticated, checkAuth } = useAuthStore()
-  console.log("User Profile Data Available:", user.isProfileDataAvailable);
+  console.log("User Profile Data Available:", user?.isProfileDataAvailable);
   
 
   return (
