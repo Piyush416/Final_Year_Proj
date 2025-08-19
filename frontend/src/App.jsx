@@ -23,6 +23,7 @@ import Settings from './AppComponents/Settings/Settings.jsx'
 import AddOppurtunities from './AppComponents/Opportunities/AddOppurtunities.jsx'
 import ShowProfile from './Profile/ShowProfile.jsx'
 import EditProfileSection from './Profile/SubComponents/EditProfileSection.jsx'
+import AddEvents from './AppComponents/Events/SubComponents/AddEvents.jsx'
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
@@ -43,6 +44,7 @@ const route = createBrowserRouter(
       <Route path='/add-opportunity' element={<ProtectedRoute> <AddOppurtunities /> </ProtectedRoute>} />
       <Route path='/show-profile' element={<ProtectedRoute> <ShowProfile /> </ProtectedRoute>} />
       <Route path="/edit-profile/:id" element={<ProtectedRoute> <EditProfileSection/> </ProtectedRoute>} />
+      <Route path="/events/add-events" element={ <ProtectedRoute><AddEvents /></ProtectedRoute> } />
      </Route>
   )
 )

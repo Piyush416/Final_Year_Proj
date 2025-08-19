@@ -9,6 +9,8 @@ import ConfigurationRoute from './Routes/ConfigurationRoute.js';
 import DiscussionFormRoute from './Routes/DiscussionFormRoute.js';
 import OppurtunitesRoute from './Routes/OppurtunitesRoute.js';
 import ProfileRoute from './Routes/ProfileRoute.js';
+import EventsRoute from './Routes/EventsRoute.js';
+
 const app = express();
 const port = process.env.PORT || 3001;
 const baseUrl = '/api';
@@ -38,6 +40,7 @@ app.use(baseUrl, ConfigurationRoute);
 app.use(baseUrl,DiscussionFormRoute)
 app.use(baseUrl, OppurtunitesRoute);
 app.use(baseUrl, ProfileRoute);
+app.use(baseUrl, EventsRoute);
 
 
 app.get('/', (req, res) => {

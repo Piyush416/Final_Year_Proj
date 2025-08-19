@@ -61,7 +61,7 @@ const JobPortal = () => {
       <div className="flex justify-between items-center w-full max-w-6xl mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Job Portal</h1>
 
-        {user?.role === "Alumni" && (
+        {(user?.role === "Alumni" || user?.role === "admin") && (
           <button
             className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-5 py-2 rounded-lg shadow-lg hover:scale-105 transform transition font-medium cursor-pointer"
             onClick={() => setIsModalOpen(true)}

@@ -1,6 +1,6 @@
 import {ApiResponse} from "../Utils/ApiResponse.js";
 import { Oppurtunity } from "../Models/Oppurtunity.js";
-import e from "express";
+
 export const createOppurtunity = async (req, res) => {
   try {
     const { JobTitle, CompanyName, Location, Description, link } = req.body;
