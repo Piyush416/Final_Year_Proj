@@ -35,7 +35,7 @@ const route = createBrowserRouter(
       <Route path='/discussions/:id' element={<ProtectedRoute> <IndivialCard />  </ProtectedRoute>} />
       <Route path='/opportunities' element={<ProtectedRoute> <JobPortal /> </ProtectedRoute>} />
       <Route path='/events' element={ <ProtectedRoute> <EventsPage /> </ProtectedRoute>  } />
-      <Route path='/findAlumnies' element={<ProtectedRoute> <FindAlumni /> </ProtectedRoute>} />
+      <Route path='/find-Alumnies' element={<ProtectedRoute> <FindAlumni /> </ProtectedRoute>} />
       <Route path='/inboxs' element={<ProtectedRoute><Inbox /></ProtectedRoute>} />
       <Route path='/profile' element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
       <Route path='/fund-raising' element={<ProtectedRoute> <FundraisingOptions /> </ProtectedRoute>} />

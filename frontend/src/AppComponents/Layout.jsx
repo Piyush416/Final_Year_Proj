@@ -41,7 +41,7 @@ const Layout = () => {
             <div className="w-full px-4">
               {/* {user.isPro} */}
               {
-                user.isProfileDataAvailable === false ? (
+                user?.isProfileDataAvailable === false ? (
                   <Link to={"/show-profile"} className="p-4 font-semibold bg-red-100 rounded-3xl flex flex-row justify-start underline">
                     Please complete your profile to access all features.<ChevronRight />
                   </Link>) : (<></>
