@@ -7,7 +7,7 @@ export const showProfile = async (req, res) => {
         if (!userId) {
             return res.status(400).json({ message: "User ID is required." });
         }
-        const userProfile = await User.findOne({ _id: userId }); 
+        const userProfile = await User.findOne({ _id: userId });
         if (!userProfile) {
             return res.status(404).json(new ApiResponse(404, null, "User not found"));
         }
@@ -44,7 +44,7 @@ export const UpdateProfile = async (req, res) => {
             facebook,
             linkedin,
             instagram
-            
+
         } = req.body;
 
         const profileData = {
@@ -75,11 +75,24 @@ export const UpdateProfile = async (req, res) => {
         }
 
         return res.status(200).json(new ApiResponse(200, updatedProfile, "Profile updated successfully"));
-        
+
 
     } catch (error) {
         console.error("Error updating profile:", error);
         return res.status(500).json(new ApiResponse(500, null, "Internal server error"));
-        
+
+    }
+}
+
+export const getAllProfiles = async (req, res) => {
+    try {
+        const result = await Profile.find().populate('userId', 'name email');
+
+        return res.status(200).json(new ApiResponse(200, result, "Profiles fetched successfully"));
+    }
+    catch (e) {
+        console.error("Error updating profile:", error);
+        return res.status(500).json(new ApiResponse(500, null, "Internal server error"));
+
     }
 }
