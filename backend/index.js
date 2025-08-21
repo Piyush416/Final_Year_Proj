@@ -10,6 +10,7 @@ import DiscussionFormRoute from './Routes/DiscussionFormRoute.js';
 import OppurtunitesRoute from './Routes/OppurtunitesRoute.js';
 import ProfileRoute from './Routes/ProfileRoute.js';
 import EventsRoute from './Routes/EventsRoute.js';
+import ChatbotRoute from "./Routes/ChatbotRoute.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -41,6 +42,7 @@ app.use(baseUrl,DiscussionFormRoute)
 app.use(baseUrl, OppurtunitesRoute);
 app.use(baseUrl, ProfileRoute);
 app.use(baseUrl, EventsRoute);
+app.use(baseUrl, ChatbotRoute)
 
 
 app.get('/', (req, res) => {
