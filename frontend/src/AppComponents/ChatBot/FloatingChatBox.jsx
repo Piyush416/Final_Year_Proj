@@ -4,6 +4,7 @@ import { Textarea } from '../../components/ui/textarea';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import { MessageCircle, X, Send, Minimize2 } from 'lucide-react';
 import chatbotAvatar from "../../assets/chatbotAvatar.jpeg";
+import axios from "axios";
 
 const FloatingChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,7 @@ const FloatingChatbot = () => {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
+    // User message
     const userMessage = {
       id: Date.now().toString(),
       text: inputValue,
@@ -38,16 +40,36 @@ const FloatingChatbot = () => {
     setInputValue('');
     setIsTyping(true);
 
-    setTimeout(() => {
+    try {
+      // 🔥 Call your backend API
+      const response = await axios.post("/api/query", {
+        query: userMessage.text
+      });
+
+      console.log(response.data.answer)
+
+      // Bot response from server
       const botMessage = {
         id: (Date.now() + 1).toString(),
-        text: "Thanks for your message! I'm a demo chatbot.",
+        text: response.data.answer || "⚠️ No response from server.",
         isUser: false,
         timestamp: new Date()
       };
+
       setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+
+      const errorMessage = {
+        id: (Date.now() + 2).toString(),
+        text: "❌ Failed to reach the server. Please try again later.",
+        isUser: false,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -144,8 +166,8 @@ const FloatingChatbot = () => {
             </div>
           </ScrollArea>
 
-          {/* Input Section with Animation */}
-          <div className="p-4 border-t border-border bg-chat-input rounded-b-2xl animate-fade-in-up duration-1000">
+          {/* Input Section */}
+          <div className="p-4 border-t border-border bg-chat-input rounded-b-2xl">
             <div className="flex gap-2 items-end">
               <Textarea
                 ref={textareaRef}
@@ -170,7 +192,6 @@ const FloatingChatbot = () => {
 
       {/* Floating Chat Button */}
       <Button
-        
         onClick={handleToggleOpen}
         className={`h-16 w-16 rounded-full bg-gradient-to-br bg-blue-400
            shadow-[0_10px_20px_rgba(0,0,0,0.25)] backdrop-blur-md border border-white/20

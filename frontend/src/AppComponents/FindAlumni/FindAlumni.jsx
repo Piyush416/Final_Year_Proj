@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { createAxiosInstance } from "../../axios/axiosInstance";
 import { useProgress } from "../../Contexts/ProgressContext";
 import { motion } from "framer-motion"; // ✅ animation
+import { useNavigate } from "react-router-dom";
 
 const FindAlumni = () => {
+  const navigate = useNavigate()
   const [search, setSearch] = useState("");
   const [profiles, setProfiles] = useState([]);
   const [colleges, setColleges] = useState([]);
@@ -83,6 +85,10 @@ const FindAlumni = () => {
       console.error("Something went wrong while fetching profiles", error);
     }
   };
+
+  const ViewAlumniProfile = (id) => {
+    navigate(`/find-Alumnies/View-Profile/${id}`)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br p-6 flex flex-col items-center">
@@ -202,6 +208,7 @@ const FindAlumni = () => {
                 layout
                 whileHover={{ scale: 1.05 }}
                 className="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-2xl transition"
+                onClick={() => ViewAlumniProfile(profile._id)}
               >
                 <h2 className="text-xl font-bold text-indigo-800">
                   {profile?.userId?.FirstName} {profile?.userId?.LastName}

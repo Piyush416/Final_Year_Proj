@@ -96,3 +96,35 @@ export const getAllProfiles = async (req, res) => {
 
     }
 }
+
+export const getProfileById = async (req, res) => {
+    try{
+        const userId = req.params.id
+
+        console.log(userId)
+
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required." });
+        }
+        const userProfile = await Profile.findOne({ _id: userId });
+        if (!userProfile) {
+            return res.status(404).json(new ApiResponse(404, null, "User not found"));
+        }
+
+        console.log(userProfile)
+
+        // Fetch the profile associated with the user
+        const profile = await User.findOne({ _id:userProfile.userId }); // Populate user details
+        if (!profile) {
+            return res.status(200).json(new ApiResponse(200, {userProfile,profile}, "Profile not found"));
+        }
+
+        return res.status(200).json(new ApiResponse(200, {userProfile,profile}, "Profile retrieved successfully"));
+
+    }
+    catch (error) {
+        console.error("Error updating profile:", error);
+        return res.status(500).json(new ApiResponse(500, null, "Internal server error"));
+
+    }
+}
