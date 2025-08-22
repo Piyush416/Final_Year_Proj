@@ -11,6 +11,10 @@ import OppurtunitesRoute from './Routes/OppurtunitesRoute.js';
 import ProfileRoute from './Routes/ProfileRoute.js';
 import EventsRoute from './Routes/EventsRoute.js';
 import ChatbotRoute from "./Routes/ChatbotRoute.js";
+//Cron Schedule
+import cron from 'node-cron';
+import { syncFromMongo } from './Controllers/ChatbotController.js'
+
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -43,6 +47,17 @@ app.use(baseUrl, OppurtunitesRoute);
 app.use(baseUrl, ProfileRoute);
 app.use(baseUrl, EventsRoute);
 app.use(baseUrl, ChatbotRoute)
+
+//Cron Schedule
+cron.schedule("0 2 * * *",async () => {
+    console.log("Cron Job is running at 2 AM");
+    try {
+        await syncFromMongo()
+        console.log("Cron Job is completed")
+    }catch (error) {
+        console.log("Cron Job is failed",error)
+    }
+})
 
 
 app.get('/', (req, res) => {
