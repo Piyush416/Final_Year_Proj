@@ -88,7 +88,7 @@ This project follows the **Scrum (Agile) Model**:
 ![Fund Raising Form](fund_raising_form.jpg)
 
 ### Edit Profile Page
-![Edit Profile](Edit Profile.jpg)
+![Edit Profile](Edit_Profile.jpg)
 
 ---
 
@@ -101,10 +101,9 @@ This project follows the **Scrum (Agile) Model**:
 ---
 
 ## 👨‍💻 Team Members
-
-- Nitish Mahendra Prajapati  
-- Mahfooz Khan  
 - **Piyush Bagadi**  
+- Nitish Mahendra Prajapati
+- Mahfooz Khan
 - Gaurav Kumar  
 
 ### 🎓 Project Guide
